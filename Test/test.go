@@ -1,24 +1,22 @@
 package main
 
 import (
-	"time"
-	"strconv"
-	"math/rand"
-	"strings"
+	_ "encoding/binary"
 	"fmt"
+	"os/exec"
+	"strings"
 )
 
-func main() {
-	amount := 100000000
-	max := amount * 10
-	min := 0
-	var b strings.Builder
-	rand.Seed(int64(time.Now().Nanosecond()))
-	for i := 0; i < amount - 1; i++ {
-		b.WriteString(strconv.Itoa(rand.Int()%(max-min) + min))
-		b.WriteString(", ")
-	}
-	b.WriteString(strconv.Itoa(rand.Int()%(max-min) + min))
-	fmt.Print(b.String())
-}
+// func splitToInt(array string, sep string) []int {
+// 	var intArray []int
+// 	strings.Split
+// }
 
+func main() {
+	out, _ := exec.Command("arrgen", "100000000").Output()
+	out = out[:len(out)-1] //removes new line char
+
+	output := strings.Split(string(out), ", ")
+
+	fmt.Println(output)
+}
